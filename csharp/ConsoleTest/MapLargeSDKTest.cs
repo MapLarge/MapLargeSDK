@@ -10,27 +10,27 @@ namespace ConsoleTest {
 		static void Main(string[] args) {
 			
 			//DEFAULT CREDENTIALS
-			string server = "http://server.maplarge.com/";
-			string user = "user@ml.com";
-			string pass = "pw123456";
-			int token = 123456789;
+			string server = "http://e.maplarge.com/";
+			string user = "USER";
+			string pass = "PASS";
+			//int token = 123456789;
 
 			Dictionary<string, string> paramlist = new Dictionary<string, string>();
 
 			//CREATE MAPLARGE CONNECTION WITH USER / PASSWORD
-			MapLargeConnector mlconnPassword = new MapLargeConnector(server, user, pass);
+			APIConnection mlconnPassword = new APIConnection(server, user, pass);
 
 			//CREATE MAPLARGE CONNECTION WITH USER / AUTH TOKEN
-			MapLargeConnector mlconnToken = new MapLargeConnector(server, user, token);
+			//MapLargeConnector mlconnToken = new MapLargeConnector(server, user, token);
 
 			//CREATE TABLE SYNCHRONOUS (NO WEB CALL)
 			paramlist.Add("account", "test");
-			paramlist.Add("tablename", "testJavaSdkTable");
-			paramlist.Add("fileurl", "http://www.domain.com/testfile.csv");
-			MapLargeConnector.NO_WEB_CALLS = true;
+			paramlist.Add("tablename", "sdktest1");
+			paramlist.Add("fileurl", "http://maplarge-data.s3.amazonaws.com/TwitterS3.zip");
+			//MapLargeConnector.NO_WEB_CALLS = true;
 			string response = mlconnPassword.InvokeAPIRequest("CreateTableSynchronous", paramlist);
 			Console.WriteLine(response);
-			MapLargeConnector.NO_WEB_CALLS = false;
+			APIConnection.NO_WEB_CALLS = false;
 
 			//RETRIEVE REMOTE USER AUTH TOKEN 
 			response = mlconnPassword.GetRemoteAuthToken(user, pass, "255.255.255.255");
@@ -39,15 +39,15 @@ namespace ConsoleTest {
 			//LIST GROUPS
 			paramlist.Clear();
 			paramlist.Add("account", "test");
-			response = mlconnToken.InvokeAPIRequestPost("ListGroups", paramlist);
+			response = mlconnPassword.InvokeAPIRequestPost("ListGroups", paramlist);
 			Console.WriteLine(response);
 
 			//CREATE TABLE WITH FILES SYNCHRONOUS
 			paramlist.Clear();
 			paramlist.Add("account", "test");
-			paramlist.Add("tablename", "PostedTableImport");
-			response = mlconnToken.InvokeAPIRequestPost("CreateTableWithFilesSynchronous", paramlist,
-					new string[] { "C:\\Data\\TestFile.csv" });
+			paramlist.Add("tablename", "sdktest2");
+			response = mlconnPassword.InvokeAPIRequestPost("CreateTableWithFilesSynchronous", paramlist,
+					new string[] { @"C:\MapLarge\Small.csv" });
 			Console.WriteLine(response);
 		}
 	}
