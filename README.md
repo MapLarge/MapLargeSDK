@@ -4,7 +4,7 @@
 [MapLarge Site](http://www.maplarge.com)
 
 
-[MapLarge JS API Info](http://maplarge.com/api)
+[MapLarge JS API Info](http://maplarge.com/developer/js)
 
 [REST / Remote Table API Reference](https://github.com/MapLarge/MapLargeSDK/blob/master/api.md)
 
@@ -353,4 +353,4 @@ For more samples:
 
 [www.maplarge.com](http://www.maplarge.com)
 
-[MapLarge JS API Info](http://maplarge.com/api)
+[MapLarge JS API Info](http://maplarge.com/developer/js)
